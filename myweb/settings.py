@@ -73,16 +73,26 @@ WSGI_APPLICATION = 'myweb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# Database
+# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'railway',
+#         'USER': 'postgres',
+#         'PASSWORD': 'a-Cg1B-gAf-41163*GG-FEg3e5EEGD6c',
+#         'HOST': 'viaduct.proxy.rlwy.net',
+#         'PORT': '48418',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'a-Cg1B-gAf-41163*GG-FEg3e5EEGD6c',
-        'HOST': 'viaduct.proxy.rlwy.net',
-        'PORT': '48418',
+        "ENGINE": "django.db.backends.sqlite3",
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 
 
 # Password validation
