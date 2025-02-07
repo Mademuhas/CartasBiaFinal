@@ -4,8 +4,6 @@ python3.9 --version
 
 python3.9 -m ensurepip # não aparece nos tutoriais internacionais
 
-python3.9 -m pip install psycopg2-binary
-
 python3.9 -m pip install -r requirements.txt
 
 echo " MAKE MIGRATIONS..."
