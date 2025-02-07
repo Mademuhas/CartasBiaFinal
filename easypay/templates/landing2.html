@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha uma Carta</title>
+    <style>
+        body {
+            background-color: #2D004D;
+            color: #EAD8C0;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .card-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+        }
+        .card {
+            width: 150px;
+            height: 250px;
+            background-color: #1A0033;
+            border: 2px solid #EAD8C0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+            position: relative;
+        }
+        .card:hover {
+            transform: scale(1.1);
+        }
+        .hidden-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .revealed .hidden-img {
+            opacity: 1;
+        }
+        .revealed span {
+            display: none;
+        }
+        .hidden-text {
+            margin-top: 10px;
+            font-size: 1.2em;
+            opacity: 0;
+            transition: opacity 0.5s;
+            max-width: 200px;
+        }
+        .revealed-text {
+            opacity: 1;
+        }
+        .choose-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .choose-container p {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .choose-btn {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #EAD8C0;
+            color: #2D004D;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .next-btn {
+            margin-top: 20px;
+            padding: 15px 25px;
+            font-size: 1.5em;
+            background-color: #EAD8C0;
+            color: #2D004D;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            display: none; /* Inicialmente escondido */
+        }
+    </style>
+</head>
+<body>
+    <h1>Escolha uma Carta</h1>
+    <p>Descubra o que cada carta guarda sobre a sua fome</p>
+    <div class="container">
+        <div class="card-container">
+            <div class="card" onclick="revealCard(this)">
+                <span>1</span>
+                <img class="hidden-img" src="static/images/images/comendo1.jpg" alt="Carta 1">
+            </div>
+            <div class="hidden-text">Macetando um espetinho molhado na farofa no meio de um rio</div>
+        </div>
+        <div class="card-container">
+            <div class="card" onclick="revealCard(this)">
+                <span>2</span>
+                <img class="hidden-img" src="static/images/images/comendo4.jpg" alt="Carta 2">
+            </div>
+            <div class="hidden-text">Sua primeira vez tomando cafe da manha na praia logo um paozinho com nutella</div>
+        </div>
+        <div class="card-container">
+            <div class="card" onclick="revealCard(this)">
+                <span>3</span>
+                <img class="hidden-img" src="static/images/images/comendo2.jpg" alt="Carta 3">
+            </div>
+            <div class="hidden-text">Sua primeira vez comendo um risotex</div>
+        </div>
+    </div>
+    
+    <div class="choose-container" id="choose-container">
+        <p>Escolha a sua favorita:</p>
+        <button class="choose-btn" onclick="selectCard('comendo1.jpg')">1</button>
+        <button class="choose-btn" onclick="selectCard('comendo4.jpg')">2</button>
+        <button class="choose-btn" onclick="selectCard('comendo2.jpg')">3</button>
+    </div>
+    <a href="{% url 'landing3' %}" class="next-btn" id="next-btn">Próxima Página</a>
+    <script>
+        function revealCard(card) {
+            card.classList.add("revealed");
+            card.parentElement.querySelector(".hidden-text").classList.add("revealed-text");
+            checkAllRevealed();
+        }
+
+        function checkAllRevealed() {
+            let cards = document.querySelectorAll(".card");
+            let allRevealed = Array.from(cards).every(card => card.classList.contains("revealed"));
+            if (allRevealed) {
+                document.getElementById("choose-container").style.display = "block";
+            }
+        }
+
+        function selectCard(number) {
+        alert("Você escolheu a sua carta ");
+
+        fetch('/salvar_escolha/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')  // Adiciona proteção CSRF
+            },
+            body: JSON.stringify({ escolha: number })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Escolha salva:', data);
+            alert(data.mensagem || "Escolha registrada com sucesso!");
+            document.getElementById('next-btn').style.display = 'inline-block';
+        })
+        .catch(error => console.error('Erro ao salvar escolha:', error));
+    }
+    // Função para obter o token CSRF do cookie (necessário para requisições POST no Django)
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    </script>
+</body>
+</html>

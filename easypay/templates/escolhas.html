@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colagem de Fotos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0b3ff; /* Cor lilás para o fundo */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        .photo-container, .text-container {
+            position: absolute;
+            transition: transform 0.3s ease;
+        }
+        .photo-container img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .photo-container:hover img {
+            transform: scale(1.1);
+        }
+        .text-container {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .caption {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="photo-container" style="top: 50px; left: 50px;">
+        <img src={{obj1}} alt="Foto 1">
+    </div>
+    <div class="photo-container" style="top: 200px; left: 300px;">
+        <img src={{obj2}} alt="Foto 2">
+    </div>
+    <div class="photo-container" style="top: 400px; left: 100px;">
+        <img src={{obj3}} alt="Foto 3">
+    </div>
+    <div class="photo-container" style="top: 150px; left: 500px;">
+        <img src={{obj4}} alt="Foto 4">
+    </div>
+    <div class="photo-container" style="top: 350px; left: 600px;">
+        <img src={{obj5}} alt="Foto 5">
+    </div>
+
+    <!-- Espaços para textos aleatórios -->
+    <div class="text-container" style="top: 100px; left: 150px;">
+        As cartas escolhidas formam o seu DESTINO
+    </div>
+    <div class="text-container" style="top: 500px; left: 200px;">
+        E o seu Destino diz que voce é e continuará sendo muito feliz ao lado da pessoa que mais te ama na vida
+    </div>
+    <div class="text-container" style="top: 600px; left: 400px;">
+        Pra sempre pra sempre pra sempre 
+    </div>
+
+    <div class="caption">Te amo meu amor!!!!!!! Feliz 1 ano para gente.</div>
+</body>
+</html>

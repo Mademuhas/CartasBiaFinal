@@ -1,0 +1,30 @@
+<!doctype html>
+{% load static %}
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <section class="text-gray-600 body-font">
+    {% for obj in object_list %}
+      <div class="flex flex-wrap -mx-4 -mb-10 text-center">
+        <div class="sm:w-1/2 mb-10 px-4">
+          <div class="rounded-lg h-64 overflow-hidden">
+            {% if obj.nome == 'Café Ruim' %}
+            <img alt="content" class="object-cover object-center h-full w-full" src="https://mediaserver.almg.gov.br/acervo/639/527/1639527.jpg">
+            {% endif %}
+            {% if obj.nome == 'Clientes Salvos pela Bia' %}
+            <img alt="content" class="w-full h-full" src="https://static.wikia.nocookie.net/thecreatureworldcc/images/b/bf/Angel.jpg/revision/latest/thumbnail/width/360/height/360?cb=20210407015622">
+            {% endif %}
+          </div>
+          <h2 class="title-font text-2xl font-medium text-gray-900 mt-6 mb-3">{{obj.nome}}</h2>
+          <p class="title-font text-2xl font-medium text-gray-900 mt-6 mb-3">{{obj.cont}}.</p>
+          <form method="GET" id="toggle-form">
+          <button class="flex mx-auto mt-6 text-white bg-indigo-500 border-0 py-2 px-5 focus:outline-none hover:bg-indigo-600 rounded" id="toggle" name="toggle" value="{{obj.pk}}">Aumentar</button>
+        </form>
+        </div>
+    </div>
+    {% endfor %}
+  </section>
+</head>
+</html>
