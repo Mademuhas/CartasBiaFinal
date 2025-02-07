@@ -1,7 +1,9 @@
 echo " BUILD START"
 
 python3.9 --version
+sudo apt install build-essential
 python3.9 -m ensurepip # não aparece nos tutoriais internacionais
+
 python3.9 -m pip install -r requirements.txt
 
 echo " MAKE MIGRATIONS..."
